@@ -3,10 +3,11 @@
 
 var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
+var Rate$ReactTemplate = require("./Rate.bs.js");
 
 var component = ReasonReact.statelessComponent("BuyRate");
 
-function make(currency, _children) {
+function make(currency, rate, _children) {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
@@ -18,7 +19,7 @@ function make(currency, _children) {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (_self) {
-              return React.createElement("div", undefined);
+              return React.createElement("div", undefined, ReasonReact.element(undefined, undefined, Rate$ReactTemplate.make(rate, "Buy " + currency, /* array */[])));
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */component[/* retainedProps */11],

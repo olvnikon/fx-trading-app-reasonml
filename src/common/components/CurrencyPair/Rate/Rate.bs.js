@@ -7,7 +7,7 @@ var RateHelpers$ReactTemplate = require("./RateHelpers.bs.js");
 
 var component = ReasonReact.statelessComponent("Rate");
 
-function make(rate, header) {
+function make(rate, header, _children) {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],

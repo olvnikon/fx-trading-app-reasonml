@@ -19,19 +19,15 @@ let splitByChunks = value => {
 let mapLeftSide = leftSide =>
   <span> {ReasonReact.string(leftSide ++ ".")} </span>;
 
+let mapRightSide = rightSide =>
+  splitByChunks(rightSide) |> mapChunks |> ReasonReact.array;
+
 let splitRateLeftRight = rate => {
   let result = Js.String.split(".", string_of_float(rate));
-  switch (result[0] !== "", result[1] !== "") {
-  | (true, true) => (result[0], result[1])
-  | (true, false) => (result[0], "")
-  | _ => ("", "")
-  };
+  (result[0], result[1]);
 };
 
 let mapRate = (rate: float) => {
   let (leftSide, rightSide) = splitRateLeftRight(rate);
-  <span>
-    {mapLeftSide(leftSide)}
-    {ReasonReact.array(mapChunks(splitByChunks(rightSide)))}
-  </span>;
+  <span> {mapLeftSide(leftSide)} {mapRightSide(rightSide)} </span>;
 };

@@ -29,28 +29,17 @@ function mapLeftSide(leftSide) {
   return React.createElement("span", undefined, leftSide + ".");
 }
 
+function mapRightSide(rightSide) {
+  var chunks = splitByChunks(rightSide);
+  return $$Array.mapi(mapChunk, chunks);
+}
+
 function splitRateLeftRight(rate) {
   var result = Pervasives.string_of_float(rate).split(".");
-  var match = Caml_array.caml_array_get(result, 0) !== "";
-  var match$1 = Caml_array.caml_array_get(result, 1) !== "";
-  if (match) {
-    if (match$1) {
-      return /* tuple */[
-              Caml_array.caml_array_get(result, 0),
-              Caml_array.caml_array_get(result, 1)
-            ];
-    } else {
-      return /* tuple */[
-              Caml_array.caml_array_get(result, 0),
-              ""
-            ];
-    }
-  } else {
-    return /* tuple */[
-            "",
-            ""
-          ];
-  }
+  return /* tuple */[
+          Caml_array.caml_array_get(result, 0),
+          Caml_array.caml_array_get(result, 1)
+        ];
 }
 
 function mapRate(rate) {
@@ -63,6 +52,7 @@ exports.mapChunk = mapChunk;
 exports.mapChunks = mapChunks;
 exports.splitByChunks = splitByChunks;
 exports.mapLeftSide = mapLeftSide;
+exports.mapRightSide = mapRightSide;
 exports.splitRateLeftRight = splitRateLeftRight;
 exports.mapRate = mapRate;
 /* react Not a pure module */

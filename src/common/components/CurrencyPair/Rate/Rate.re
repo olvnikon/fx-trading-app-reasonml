@@ -1,6 +1,6 @@
 let component = ReasonReact.statelessComponent("Rate");
 
-let make = (~rate: float, ~header: string) => {
+let make = (~rate: float, ~header: string, _children) => {
   ...component,
   render: _self => {
     <section>
