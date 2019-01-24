@@ -1,7 +1,11 @@
 type pair =
   | Pair(string, float, float);
 
-let component = ReasonReact.statelessComponent("Home");
+type state = {currencyPairs: array(pair)};
+type action =
+  | RefreshPairs;
+
+let component = ReasonReact.reducerComponent("Home");
 
 let currencyPairsMock = [|
   Pair("USD CHF", 0.99143, 0.99043),
@@ -14,16 +18,25 @@ let currencyPairsMock = [|
 
 let make = _children => {
   ...component,
+  initialState: () => {currencyPairs: currencyPairsMock},
   didMount: _self => {
     ();
   },
-  render: _self => {
+  reducer: (action, state) =>
+    switch (action) {
+    | RefreshPairs =>
+      ReasonReact.Update({
+        currencyPairs:
+          Array.map(pair => HomeHelpers.mapPairs(pair), state.currencyPairs),
+      })
+    },
+  render: self => {
     <main>
       {ReasonReact.array(
          Array.mapi(
            (index, Pair(pair, buy, sell)) =>
              <CurrencyPair key={string_of_int(index)} pair buy sell />,
-           currencyPairsMock,
+           self.state.currencyPairs,
          ),
        )}
     </main>;
