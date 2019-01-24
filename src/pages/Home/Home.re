@@ -14,6 +14,9 @@ let currencyPairsMock = [|
 
 let make = _children => {
   ...component,
+  didMount: _self => {
+    ();
+  },
   render: _self => {
     <main>
       {ReasonReact.array(

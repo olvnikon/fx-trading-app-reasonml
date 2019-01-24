@@ -1,23 +1,16 @@
 type state = {prevBuy: float};
+type retainedProps = {buy: float};
 
-type action =
-  | Buy(float);
-
-let component = ReasonReact.reducerComponent("CurrencyPair");
+let component =
+  ReasonReact.statelessComponentWithRetainedProps("CurrencyPair");
 
 let getMainCurrency = pair => Js.String.split(" ", pair)[0];
 
 let make = (~pair: string, ~buy: float, ~sell: float, _children) => {
   ...component,
-  initialState: () => {prevBuy: 0.0},
-  reducer: (action, _state) =>
-    switch (action) {
-    | Buy(buy) => ReasonReact.Update({prevBuy: buy})
-    },
+  retainedProps: buy,
   render: self => {
-    /* self.send(Buy(buy));*/
-
-    let isPositiveTrend = self.state.prevBuy < buy;
+    let isPositiveTrend = self.retainedProps < buy;
     let currency = getMainCurrency(pair);
 
     <section>
