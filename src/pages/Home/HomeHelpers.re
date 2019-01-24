@@ -15,8 +15,8 @@ let multiplyByRandom =
     HomeConstants.maxMultiplier,
   );
 
-let getPairWithUpdatedRate = (Home.Pair(pair, buy, sell)) =>
-  Home.Pair(pair, multiplyByRandom(buy), multiplyByRandom(sell));
+let getPairWithUpdatedRate = (HomeMocks.Pair(pair, buy, sell)) =>
+  HomeMocks.Pair(pair, multiplyByRandom(buy), multiplyByRandom(sell));
 
 let mapPairs = pair =>
   shouldPairUpdate() ? getPairWithUpdatedRate(pair) : pair;

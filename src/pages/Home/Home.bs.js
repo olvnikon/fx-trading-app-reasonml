@@ -2,44 +2,14 @@
 'use strict';
 
 var $$Array = require("bs-platform/lib/js/array.js");
+var Block = require("bs-platform/lib/js/block.js");
 var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
+var HomeMocks$ReactTemplate = require("./HomeMocks.bs.js");
+var HomeHelpers$ReactTemplate = require("./HomeHelpers.bs.js");
 var CurrencyPair$ReactTemplate = require("../../common/components/CurrencyPair/CurrencyPair.bs.js");
 
-var component = ReasonReact.statelessComponent("Home");
-
-var currencyPairsMock = /* array */[
-  /* Pair */[
-    "USD CHF",
-    0.99143,
-    0.99043
-  ],
-  /* Pair */[
-    "GBP USD",
-    1.28495,
-    1.2836
-  ],
-  /* Pair */[
-    "GBP CHF",
-    1.27378,
-    1.27147
-  ],
-  /* Pair */[
-    "EUR SEK",
-    9.632,
-    9.6055
-  ],
-  /* Pair */[
-    "USD JPY",
-    110.467,
-    110.417
-  ],
-  /* Pair */[
-    "EUR JPY",
-    120.589,
-    120.491
-  ]
-];
+var component = ReasonReact.reducerComponent("Home");
 
 function make(_children) {
   return /* record */[
@@ -54,19 +24,22 @@ function make(_children) {
           /* willUnmount */component[/* willUnmount */6],
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
-          /* render */(function (_self) {
+          /* render */(function (self) {
               return React.createElement("main", undefined, $$Array.mapi((function (index, param) {
                                 return ReasonReact.element(String(index), undefined, CurrencyPair$ReactTemplate.make(param[0], param[1], param[2], /* array */[]));
-                              }), currencyPairsMock));
+                              }), self[/* state */1][/* currencyPairs */0]));
             }),
-          /* initialState */component[/* initialState */10],
+          /* initialState */(function (param) {
+              return /* record */[/* currencyPairs */HomeMocks$ReactTemplate.currencyPairsMock];
+            }),
           /* retainedProps */component[/* retainedProps */11],
-          /* reducer */component[/* reducer */12],
+          /* reducer */(function (action, state) {
+              return /* Update */Block.__(0, [/* record */[/* currencyPairs */$$Array.map(HomeHelpers$ReactTemplate.mapPairs, state[/* currencyPairs */0])]]);
+            }),
           /* jsElementWrapped */component[/* jsElementWrapped */13]
         ];
 }
 
 exports.component = component;
-exports.currencyPairsMock = currencyPairsMock;
 exports.make = make;
 /* component Not a pure module */

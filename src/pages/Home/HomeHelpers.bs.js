@@ -24,23 +24,12 @@ function getPairWithUpdatedRate(param) {
         ];
 }
 
-function mapPairs(param) {
-  var sell = param[2];
-  var buy = param[1];
-  var pair = param[0];
+function mapPairs(pair) {
   var match = Math.random() < HomeConstants$ReactTemplate.pairChangeProbability;
   if (match) {
-    return getPairWithUpdatedRate(/* Pair */[
-                pair,
-                buy,
-                sell
-              ]);
+    return getPairWithUpdatedRate(pair);
   } else {
-    return /* Pair */[
-            pair,
-            buy,
-            sell
-          ];
+    return pair;
   }
 }
 
