@@ -3,11 +3,14 @@
 
 var $$Array = require("bs-platform/lib/js/array.js");
 var Block = require("bs-platform/lib/js/block.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var HomeMocks$ReactTemplate = require("./HomeMocks.bs.js");
 var HomeHelpers$ReactTemplate = require("./HomeHelpers.bs.js");
 var CurrencyPair$ReactTemplate = require("../../common/components/CurrencyPair/CurrencyPair.bs.js");
+var HomeConstants$ReactTemplate = require("./HomeConstants.bs.js");
 
 var component = ReasonReact.reducerComponent("Home");
 
@@ -17,11 +20,22 @@ function make(_children) {
           /* reactClassInternal */component[/* reactClassInternal */1],
           /* handedOffState */component[/* handedOffState */2],
           /* willReceiveProps */component[/* willReceiveProps */3],
-          /* didMount */(function (_self) {
+          /* didMount */(function (self) {
+              self[/* state */1][/* timerId */1][0] = Caml_option.some(setInterval((function (param) {
+                          return Curry._1(self[/* send */3], /* RefreshPairs */0);
+                        }), HomeConstants$ReactTemplate.refreshTime));
               return /* () */0;
             }),
           /* didUpdate */component[/* didUpdate */5],
-          /* willUnmount */component[/* willUnmount */6],
+          /* willUnmount */(function (self) {
+              var match = self[/* state */1][/* timerId */1][0];
+              if (match !== undefined) {
+                clearInterval(Caml_option.valFromOption(match));
+                return /* () */0;
+              } else {
+                return /* () */0;
+              }
+            }),
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
@@ -30,11 +44,17 @@ function make(_children) {
                               }), self[/* state */1][/* currencyPairs */0]));
             }),
           /* initialState */(function (param) {
-              return /* record */[/* currencyPairs */HomeMocks$ReactTemplate.currencyPairsMock];
+              return /* record */[
+                      /* currencyPairs */HomeMocks$ReactTemplate.currencyPairsMock,
+                      /* timerId : record */[/* contents */undefined]
+                    ];
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
-              return /* Update */Block.__(0, [/* record */[/* currencyPairs */$$Array.map(HomeHelpers$ReactTemplate.mapPairs, state[/* currencyPairs */0])]]);
+              return /* Update */Block.__(0, [/* record */[
+                          /* currencyPairs */$$Array.map(HomeHelpers$ReactTemplate.mapPairs, state[/* currencyPairs */0]),
+                          /* timerId */state[/* timerId */1]
+                        ]]);
             }),
           /* jsElementWrapped */component[/* jsElementWrapped */13]
         ];

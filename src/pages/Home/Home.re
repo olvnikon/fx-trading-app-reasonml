@@ -1,4 +1,7 @@
-type state = {currencyPairs: array(HomeMocks.pair)};
+type state = {
+  currencyPairs: array(HomeMocks.pair),
+  timerId: ref(option(Js.Global.intervalId)),
+};
 type action =
   | RefreshPairs;
 
@@ -6,16 +9,31 @@ let component = ReasonReact.reducerComponent("Home");
 
 let make = _children => {
   ...component,
-  initialState: () => {currencyPairs: HomeMocks.currencyPairsMock},
-  didMount: _self => {
-    ();
+  initialState: () => {
+    currencyPairs: HomeMocks.currencyPairsMock,
+    timerId: ref(None),
+  },
+  didMount: self => {
+    self.state.timerId :=
+      Some(
+        Js.Global.setInterval(
+          () => self.send(RefreshPairs),
+          HomeConstants.refreshTime,
+        ),
+      );
+  },
+  willUnmount: self => {
+    switch (self.state.timerId^) {
+    | Some(id) => Js.Global.clearInterval(id)
+    | None => ()
+    };
   },
   reducer: (action, state) =>
     switch (action) {
     | RefreshPairs =>
       ReasonReact.Update({
-        currencyPairs:
-          Array.map(pair => HomeHelpers.mapPairs(pair), state.currencyPairs),
+        ...state,
+        currencyPairs: Array.map(HomeHelpers.mapPairs, state.currencyPairs),
       })
     },
   render: self => {
