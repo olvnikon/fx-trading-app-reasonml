@@ -12,6 +12,8 @@ var HomeHelpers$ReactTemplate = require("./HomeHelpers.bs.js");
 var CurrencyPair$ReactTemplate = require("../../common/components/CurrencyPair/CurrencyPair.bs.js");
 var HomeConstants$ReactTemplate = require("./HomeConstants.bs.js");
 
+require("./Home.css");
+
 var component = ReasonReact.reducerComponent("Home");
 
 function make(_children) {
@@ -39,7 +41,9 @@ function make(_children) {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
-              return React.createElement("main", undefined, $$Array.mapi((function (index, param) {
+              return React.createElement("main", {
+                          className: "home"
+                        }, $$Array.mapi((function (index, param) {
                                 return ReasonReact.element(String(index), undefined, CurrencyPair$ReactTemplate.make(param[0], param[1], param[2], /* array */[]));
                               }), self[/* state */1][/* currencyPairs */0]));
             }),
@@ -62,4 +66,4 @@ function make(_children) {
 
 exports.component = component;
 exports.make = make;
-/* component Not a pure module */
+/*  Not a pure module */

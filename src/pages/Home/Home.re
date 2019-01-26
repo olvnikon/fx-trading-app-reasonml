@@ -1,3 +1,5 @@
+Utils.requireCSS("./Home.css");
+
 type state = {
   currencyPairs: array(HomeMocks.pair),
   timerId: ref(option(Js.Global.intervalId)),
@@ -37,7 +39,7 @@ let make = _children => {
       })
     },
   render: self => {
-    <main>
+    <main className="home">
       {ReasonReact.array(
          Array.mapi(
            (index, HomeMocks.Pair(pair, buy, sell)) =>

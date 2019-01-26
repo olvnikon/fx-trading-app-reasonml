@@ -8,6 +8,8 @@ var BuyRate$ReactTemplate = require("./Rate/BuyRate.bs.js");
 var SellRate$ReactTemplate = require("./Rate/SellRate.bs.js");
 var Triangle$ReactTemplate = require("./Triangle/Triangle.bs.js");
 
+require("./CurrencyPair.css");
+
 var component = ReasonReact.statelessComponentWithRetainedProps("CurrencyPair");
 
 function getMainCurrency(pair) {
@@ -28,7 +30,13 @@ function make(pair, buy, sell, _children) {
           /* render */(function (self) {
               var isPositiveTrend = self[/* retainedProps */2] < buy;
               var currency = getMainCurrency(pair);
-              return React.createElement("section", undefined, React.createElement("header", undefined, React.createElement("h3", undefined, pair)), React.createElement("main", undefined, ReasonReact.element(undefined, undefined, SellRate$ReactTemplate.make(currency, sell, /* array */[])), ReasonReact.element(undefined, undefined, Triangle$ReactTemplate.make(isPositiveTrend, /* array */[])), ReasonReact.element(undefined, undefined, BuyRate$ReactTemplate.make(currency, buy, /* array */[]))));
+              return React.createElement("section", {
+                          className: "currencyPair"
+                        }, React.createElement("header", {
+                              className: "header"
+                            }, React.createElement("h3", undefined, pair)), React.createElement("main", {
+                              className: "content"
+                            }, ReasonReact.element(undefined, undefined, SellRate$ReactTemplate.make(currency, sell, /* array */[])), ReasonReact.element(undefined, undefined, Triangle$ReactTemplate.make(isPositiveTrend, /* array */[])), ReasonReact.element(undefined, undefined, BuyRate$ReactTemplate.make(currency, buy, /* array */[]))));
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */buy,
@@ -40,4 +48,4 @@ function make(pair, buy, sell, _children) {
 exports.component = component;
 exports.getMainCurrency = getMainCurrency;
 exports.make = make;
-/* component Not a pure module */
+/*  Not a pure module */
